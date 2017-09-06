@@ -1,10 +1,15 @@
 <div id="map"></div>
 <script>
 import { defaultMapStyle } from './defaultMapStyle'
+import probTopojson from '../../assets/topo2.json'
+import * as topojson from "topojson-client";
+
+console.log(probTopojson)
 
 export default {
     oncreate() {
         markers = this.get("markers");
+        choropleth = this.get("choropleth");
         config = Object.assign(defaultConfig, this.get("config"));
         markerConfig = Object.assign(defaultMarkerConfig, this.get("markerConfig"));
         var el = document.createElement('script');
@@ -18,20 +23,23 @@ let infowindow;
 let markers;
 let config;
 let markerConfig;
+let choropleth;
+let features;
 
 const defaultConfig = {
     center: { lat: 30.7316306, lng: -94.9396368 },
-    scrollwheel: false,
+    scrollwheel: true,
     mapTypeControl: false,
     streetViewControl: false,
     zoom: 4,
-    draggable: false,
+    draggable: true,
     panControl: false,
-    zoomControl: false
+    zoomControl: true
+    // gestureHandling: "greedy"
 }
 
 const defaultMarkerConfig = {
-    markerSize: 10,
+    markerSize: 5,
     infoWindowWidth: 250,
     url: `${process.env.PATH}/assets/map-icon.png`
 }
@@ -55,6 +63,49 @@ window.initMap = () => {
     map.mapTypes.set('styled_map', new google.maps.StyledMapType(defaultMapStyle));
     map.setMapTypeId('styled_map');
 
+    const geojson = {
+        type: "FeatureCollection",
+        features: [{
+
+                "geometry": topojson.merge(probTopojson, probTopojson.objects["2017090606_wsp34knt120hr_5km"].geometries.filter(d => [">90%"].indexOf(d.properties.PERCENTAGE) > -1)),
+                "properties": {
+                    "band": ">90%"
+                },
+                "type": "Feature"
+            },
+            {
+
+                "geometry": topojson.merge(probTopojson, probTopojson.objects["2017090606_wsp34knt120hr_5km"].geometries.filter(d => ["50-60%", "60-70%", "70-80%", "80-90%"].indexOf(d.properties.PERCENTAGE) > -1)),
+                "properties": {
+                    "band": "50-90%"
+                },
+                "type": "Feature"
+            },
+            {
+
+                "geometry": topojson.merge(probTopojson, probTopojson.objects["2017090606_wsp34knt120hr_5km"].geometries.filter(d => ["40-50%", "30-40%", "20-30%", "10-20%"].indexOf(d.properties.PERCENTAGE) > -1)),
+                "properties": {
+                    "band": "10-50%"
+                },
+                "type": "Feature"
+            },
+            {
+
+                "geometry": topojson.merge(probTopojson, probTopojson.objects["2017090606_wsp34knt120hr_5km"].geometries.filter(d => ["<5%", "5-10%"].indexOf(d.properties.PERCENTAGE) > -1)),
+                "properties": {
+                    "band": "<10%"
+                },
+                "type": "Feature"
+            }
+        ]
+    };
+
+    map.data.addGeoJson(geojson)
+    map.data.setStyle(choropleth)
+
+    // var kmzLayer = new google.maps.KmlLayer('http://www.nhc.noaa.gov/storm_graphics/api/AL112017_029adv_TRACK.kmz');
+    // kmzLayer.setMap(map);
+
     if (markers && markers.length > 0) {
         markers.forEach((m) => {
             const markerSize = defaultMarkerConfig.markerSize;
@@ -62,6 +113,7 @@ window.initMap = () => {
                 map: map,
                 position: m,
                 icon: {
+
                     url: markerConfig.url,
                     scaledSize: new google.maps.Size(markerConfig.markerSize, markerConfig.markerSize)
                 }
@@ -82,8 +134,19 @@ window.initMap = () => {
 
                 });
             }
+
+            var mapLabel = new MapLabel({
+                text: 'Test',
+                position: new google.maps.LatLng(m.lat, m.lng),
+                map: map,
+                fontSize: 35,
+                align: 'right'
+            });
+
         });
     }
+
+    window.map = map;
 }
 
 function inIframe() {
