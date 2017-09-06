@@ -24,3 +24,21 @@ const map = new GoogleMap({
         key: "AIzaSyBGZVyAXHJwoA4Ea-a3kuD1AsuZwbrnLlM"
     }
 })
+
+
+//use this in map config, note f.getProperty(x) rather than f.properties.x
+
+// choropleth : f => {
+
+//         return {
+//              fillColor: changeColour(f.getProperty('change')),
+//              fillOpacity: 0.5,
+//              strokeColor : 'white',
+//              strokeWeight : 1.5
+//          }
+//      }
+
+// this belongs inside the component
+
+// map.data.addGeoJson(features)
+// map.data.setStyle(choropleth)
