@@ -15,11 +15,13 @@ export async function render() {
 
     return `<div class="here">
     	<div class="scale">
-    		<div class="scale__title">Probability that tropical storm level winds will hit an area in the next 5 days</div>
+    		<div class="scale__title">Probability of tropical storm level winds in the next five days</div>
     		<div class="scale__section" data-label=">90%" style="background-color: #b51800"></div>
     		<div class="scale__section" data-label="50-90%" style="background-color: #ff9b0b"></div>
     		<div class="scale__section" data-label="10-50%" style="background-color: #ffce4b"></div>
     		<div class="scale__section" data-label="<10%" style="background-color: #ffffaf"></div>
     	</div>
+    	<div class="map"></div>
+    	<div class="notes">All times in Atlantic Standard Time | Source: US National Hurricane Center</div>
     </div>`;
 }

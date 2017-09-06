@@ -2,7 +2,7 @@
 @import "fonts";
 
 // Uncomment for embeds
-//@import "embed";
+// @import "embed";
 
 // Uncomment for full screen (including immersive article main media)
 //@import "fullscreen";
@@ -11,6 +11,8 @@
 .interactive-atom {
     margin: 0 !important;
 }
+
+
 
 @import "../components/interactive-google-map/styles";
 
@@ -53,4 +55,36 @@
 	}
 
 	font-weight: bold;
+}
+
+.int-labels {
+	@include fs-textSans(2);
+
+	@include mq($until: 600px) {
+		// @include fs-textSans(1);
+		font-size: 11px;
+		padding-top: 2px;
+		line-height: 10px;
+	}
+
+	&:nth-of-type(odd) {
+		// display: none !important;
+	}
+
+	color: #000;
+	// font-weight: bold;
+}
+
+.notes {
+	@include fs-textSans(2);
+	color: #767676;
+	padding-top: 4px;
+}
+
+.labels-title {
+	// font-size: 14px;
+
+	@include mq($until: 600px) {
+		// font-size: 12px !important;
+	}
 }

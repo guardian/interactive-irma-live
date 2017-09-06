@@ -1,7 +1,7 @@
 #map {
-    padding-bottom: 60%;
+    padding-bottom: 75%;
 
-    @include mq($until: tablet) {
+    @include mq($until: 600px) {
     	padding-bottom: 120%;
     }
 }
