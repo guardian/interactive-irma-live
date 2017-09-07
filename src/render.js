@@ -11,7 +11,7 @@ export async function render() {
 // const shp = await (shapefile.open("example.shp")
 //   .then(source => source.read())
 
-
+    const date = (new Date()).getDate();
 
     return `<div class="here">
     	<div class="scale">
@@ -22,6 +22,6 @@ export async function render() {
     		<div class="scale__section" data-label="<10%" style="background-color: #ffffaf"></div>
     	</div>
     	<div class="map"></div>
-    	<div class="notes">All times in Atlantic Standard Time | Source: US National Hurricane Center | Last updated: 7 September</div>
+    	<div class="notes">All times in Atlantic Standard Time | Source: US National Hurricane Center | Last updated: ${date} September</div>
     </div>`;
 }
