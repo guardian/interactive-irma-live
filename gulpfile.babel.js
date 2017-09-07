@@ -8,6 +8,7 @@ import sass from 'gulp-sass'
 import size from 'gulp-size'
 import sourcemaps from 'gulp-sourcemaps'
 import template from 'gulp-template'
+import shell from 'gulp-shell'
 
 import browserSync from 'browser-sync'
 import del from 'del'
@@ -18,6 +19,7 @@ import runSequence from 'run-sequence'
 import source from 'vinyl-source-stream'
 import named from 'vinyl-named'
 import buffer from 'vinyl-buffer'
+import child_process from 'child_process'
 
 import webpack from 'webpack'
 import ws from 'webpack-stream'
@@ -121,6 +123,22 @@ function readOpt(fn) {
     }
 }
 
+gulp.task('irma', cb => {
+
+    const cmd = child_process.spawn('./irma.sh', [], { cwd : './src/server/' })
+
+    cmd.stdout.setEncoding('utf-8')
+    cmd.stderr.setEncoding('utf-8')
+
+    cmd.stdout.on('data', d => console.log(d.trim()))
+    cmd.stderr.on('data', d => console.log(d.trim()))
+
+    cmd.on('close', code => {
+        console.log(code === 0 ? 'irma script successful' : 'irma script errored')
+        cb(code)
+    })
+})
+
 gulp.task('clean', () => del(buildDir));
 
 gulp.task('build:css', () => {
@@ -143,7 +161,7 @@ gulp.task('build:js.main', buildJS('main.js'));
 gulp.task('build:js.app', buildJS('app.js'));
 gulp.task('build:js', ['build:js.main', 'build:js.app']);
 
-gulp.task('build:html', cb => {
+gulp.task('build:html', ['irma'], cb => {
     try {
         let render = requireUncached('./src/render.js').render;
 

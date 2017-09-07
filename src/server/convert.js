@@ -10,8 +10,6 @@ const titles = ['<10%', '10-50%', '50-90%', '>90%']
 
 const key = Object.keys(cone.objects)[0]
 
-console.log(cone.objects[key].geometries)
-
 const mergeFeatures = topo => {
 	return {
 	    type : 'FeatureCollection',
@@ -32,4 +30,4 @@ const coneMerged = mergeFeatures(topojson.topology({ irma : cone }))
 
 fs.writeFileSync('data/cone_merged.json', JSON.stringify(coneMerged, null, 2))
 
-console.log('All done.')
+console.log('Merged shapes.')

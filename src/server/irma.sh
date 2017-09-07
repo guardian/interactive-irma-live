@@ -16,6 +16,6 @@ topojson -o dates.json *pts.shp -p
 togeojson al112017.kml > track.json
 
 cd ..
-babel-node convert.js cone.json dates.json
+babel-node ./convert.js cone.json dates.json
 
 cp -R data/ ../assets/
