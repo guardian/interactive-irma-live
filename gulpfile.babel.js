@@ -123,7 +123,7 @@ function readOpt(fn) {
     }
 }
 
-gulp.task('irma', cb => {
+gulp.task('irma', ['clean'], cb => {
 
     const cmd = child_process.spawn('./irma.sh', [], { cwd : './src/server/' })
 
@@ -188,8 +188,8 @@ gulp.task('build:assets', () => {
     return gulp.src('src/assets/**/*').pipe(gulp.dest(`${buildDir}/assets`));
 });
 
-gulp.task('_build', ['clean'], cb => {
-    runSequence(['build:css', 'irma', 'build:js', 'build:html', 'build:assets'], cb);
+gulp.task('_build', ['irma'], cb => {
+    runSequence(['build:css', 'build:js', 'build:html', 'build:assets'], cb);
 });
 
 // TODO: less hacky build/_build?
