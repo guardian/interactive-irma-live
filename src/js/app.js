@@ -1,7 +1,7 @@
 import GoogleMap from '../components/interactive-google-map/index.html'
 import path from '../assets/path.json'
 
-import history from '../assets/history-working.json'
+import history from '../assets/data/track.json'
 
 // import history from '../assets/history.json'
 

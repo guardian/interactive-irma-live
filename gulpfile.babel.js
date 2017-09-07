@@ -8,6 +8,7 @@ import sass from 'gulp-sass'
 import size from 'gulp-size'
 import sourcemaps from 'gulp-sourcemaps'
 import template from 'gulp-template'
+import shell from 'gulp-shell'
 
 import browserSync from 'browser-sync'
 import del from 'del'
@@ -18,6 +19,7 @@ import runSequence from 'run-sequence'
 import source from 'vinyl-source-stream'
 import named from 'vinyl-named'
 import buffer from 'vinyl-buffer'
+import child_process from 'child_process'
 
 import webpack from 'webpack'
 import ws from 'webpack-stream'
@@ -29,7 +31,7 @@ const browser = browserSync.create();
 const buildDir = '.build';
 const cdnUrl = 'https://interactive.guim.co.uk';
 
-const isDeploy = gutil.env._.indexOf('deploy') > -1;
+const isDeploy = gutil.env._.indexOf('deploy') > -1 || gutil.env._.indexOf('deploylive') || gutil.env._.indexOf('deploypreview');
 
 const version = `v/${Date.now()}`;
 const s3Path = `atoms/${config.path}`;
@@ -121,6 +123,22 @@ function readOpt(fn) {
     }
 }
 
+gulp.task('irma', ['clean'], cb => {
+
+    const cmd = child_process.spawn('./irma.sh', [], { cwd : './src/server/' })
+
+    cmd.stdout.setEncoding('utf-8')
+    cmd.stderr.setEncoding('utf-8')
+
+    cmd.stdout.on('data', d => console.log(d.trim()))
+    cmd.stderr.on('data', d => console.log(d.trim()))
+
+    cmd.on('close', code => {
+        console.log(code === 0 ? 'irma script successful' : 'irma script errored')
+        cb(code)
+    })
+})
+
 gulp.task('clean', () => del(buildDir));
 
 gulp.task('build:css', () => {
@@ -170,7 +188,7 @@ gulp.task('build:assets', () => {
     return gulp.src('src/assets/**/*').pipe(gulp.dest(`${buildDir}/assets`));
 });
 
-gulp.task('_build', ['clean'], cb => {
+gulp.task('_build', ['irma'], cb => {
     runSequence(['build:css', 'build:js', 'build:html', 'build:assets'], cb);
 });
 
@@ -202,6 +220,39 @@ gulp.task('deploy', ['build'], cb => {
                     .on('end', cb);
             });
     });
+});
+
+gulp.task('deploylive', ['build'], cb => {
+    if(s3Path === "atoms/2016/05/blah") {
+        console.error("ERROR: You need to change the deploy path from its default value")
+        return;
+    }
+
+    gulp.src(`${buildDir}/**/*`)
+        .pipe(s3Upload('max-age=31536000', s3VersionPath))
+        .on('end', () => {
+            gulp.src('config.json')
+                .pipe(file('preview', version))
+                .pipe(file('live', version))
+                .pipe(s3Upload('max-age=30', s3Path))
+                .on('end', cb);
+        });
+});
+
+gulp.task('deploypreview', ['build'], cb => {
+    if(s3Path === "atoms/2016/05/blah") {
+        console.error("ERROR: You need to change the deploy path from its default value")
+        return;
+    }
+    
+    gulp.src(`${buildDir}/**/*`)
+        .pipe(s3Upload('max-age=31536000', s3VersionPath))
+        .on('end', () => {
+            gulp.src('config.json')
+                .pipe(file('preview', version))
+                .pipe(s3Upload('max-age=30', s3Path))
+                .on('end', cb);
+        });
 });
 
 gulp.task('local', ['build'], () => {
