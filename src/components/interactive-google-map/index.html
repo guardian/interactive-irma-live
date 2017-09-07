@@ -92,8 +92,8 @@ window.initMap = () => {
 
                 var marker1 = new MarkerWithLabel({
                     position: m,
-                    draggable: true,
-                    raiseOnDrag: true,
+                    draggable: false,
+                    raiseOnDrag: false,
                     map: map,
                     labelContent: (i === markers.length - 1) ? firstLabel : m.label,
                     labelAnchor: new google.maps.Point(-8, 15),
@@ -119,18 +119,15 @@ window.initMap = () => {
         historyMarkers.forEach((m, i) => {
             const markerSize = defaultMarkerConfig.markerSize;
 
-            if ( i !== 0) {
-                let firstLabel = document.createElement("div");
-
-                firstLabel.innerHTML = "<div><b class='labels-title'>Forecasted storm path<br></b>" + m.label + "</div>"
+            if (true) {
 
                 var marker1 = new MarkerWithLabel({
                     position: m,
-                    draggable: true,
-                    raiseOnDrag: true,
+                    draggable: false,
+                    raiseOnDrag: false,
                     map: map,
-                    labelContent: "",
-                    labelAnchor: new google.maps.Point(-8, 15),
+                    labelContent: '',//i === historyMarkers.length - 1 ? "Storm path" : '',
+                    labelAnchor: new google.maps.Point(70, 0),
                     labelClass: "int-labels", // the CSS class for the label
                     labelStyle: { opacity: 1 },
                     // icon: {
