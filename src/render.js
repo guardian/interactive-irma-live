@@ -2,6 +2,7 @@ const requireUncached = require('require-uncached');
 
 import mainTemplate from './src/templates/main.html!text'
 import 'svelte/ssr/register'
+import moment from 'moment'
 
 const Table = requireUncached('../src/components/interactive-table/render.html')
 
@@ -11,7 +12,7 @@ export async function render() {
 // const shp = await (shapefile.open("example.shp")
 //   .then(source => source.read())
 
-    const date = (new Date()).getDate();
+    const date = moment().utcOffset('-0400').format('D MMMM, h:mm a')
 
     return `<div class="here">
     	<div class="scale">
@@ -22,6 +23,6 @@ export async function render() {
     		<div class="scale__section" data-label="<10%" style="background-color: #ffffaf"></div>
     	</div>
     	<div class="map"></div>
-    	<div class="notes">All times in Atlantic Standard Time | Source: US National Hurricane Center | Last updated: ${date} September</div>
+    	<div class="notes">All times in Atlantic Standard Time | Source: US National Hurricane Center | Last updated: ${date}</div>
     </div>`;
 }

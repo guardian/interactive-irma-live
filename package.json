@@ -57,6 +57,8 @@
     "babel-cli": "^6.26.0",
     "event-stream": "^3.3.4",
     "fwd": "^0.2.2",
+    "moment": "^2.18.1",
+    "momentjs": "^2.0.0",
     "node-fetch": "^1.7.2",
     "osmosis": "^1.1.4",
     "promise-polyfill": "^6.0.2",
