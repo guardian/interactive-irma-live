@@ -51,19 +51,21 @@
     "webpack-stream": "^3.2.0"
   },
   "dependencies": {
+    "adm-zip": "^0.4.7",
     "babel-cli": "^6.26.0",
     "event-stream": "^3.3.4",
     "fwd": "^0.2.2",
     "node-fetch": "^1.7.2",
+    "osmosis": "^1.1.4",
     "promise-polyfill": "^6.0.2",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
     "require-uncached": "^1.0.3",
     "shapefile": "^0.6.6",
-    "topojson-client": "^3.0.0",
-    "unfetch": "^3.0.0",
     "stream": "0.0.2",
     "stream-reduce": "^1.0.3",
+    "topojson": "^3.0.2",
+    "unfetch": "^3.0.0",
     "unzip": "^0.1.11"
   }
 }
