@@ -51,6 +51,7 @@
     "webpack-stream": "^3.2.0"
   },
   "dependencies": {
+    "@turf/turf": "^4.7.1",
     "adm-zip": "^0.4.7",
     "babel-cli": "^6.26.0",
     "event-stream": "^3.3.4",
