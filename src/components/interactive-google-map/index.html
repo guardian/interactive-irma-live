@@ -6,7 +6,7 @@ import probTopojson from '../../assets/topo3.json'
 
 export default {
     oncreate() {
-        markers = this.get("markers");
+        markers = this.get("markers").slice(1);
         historyMarkers = this.get("historyMarkers")
         choropleth = this.get("choropleth");
         config = Object.assign(defaultConfig, this.get("config"));
