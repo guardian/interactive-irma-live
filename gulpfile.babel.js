@@ -189,7 +189,7 @@ gulp.task('build:assets', () => {
 });
 
 gulp.task('_build', ['clean'], cb => {
-    runSequence(['build:css', 'build:js', 'irma', 'build:html', 'build:assets'], cb);
+    runSequence(['build:css', 'irma', 'build:js', 'build:html', 'build:assets'], cb);
 });
 
 // TODO: less hacky build/_build?
