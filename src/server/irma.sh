@@ -1,5 +1,6 @@
 URL=`babel-node scrape.js | tail -1`
 
+rm -rf data
 mkdir -p data
 wget http://www.nhc.noaa.gov/gis/forecast/archive/wsp_120hr5km_latest.zip -O cone.zip
 wget $URL -O dates.zip
