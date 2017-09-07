@@ -31,7 +31,7 @@ const browser = browserSync.create();
 const buildDir = '.build';
 const cdnUrl = 'https://interactive.guim.co.uk';
 
-const isDeploy = gutil.env._.indexOf('deploy') > -1 || gutil.env._.indexOf('deploylive') || gutil.env._.indexOf('deploypreview');
+const isDeploy = gutil.env._.indexOf('deploy') > -1 || gutil.env._.indexOf('deploylive') > -1 || gutil.env._.indexOf('deploypreview') > -1;
 
 const version = `v/${Date.now()}`;
 const s3Path = `atoms/${config.path}`;
