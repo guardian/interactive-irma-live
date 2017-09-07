@@ -1,9 +1,7 @@
 import GoogleMap from '../components/interactive-google-map/index.html'
 import path from '../assets/path.json'
 
-const el = document.querySelector(".here")
-
-console.log(el);
+const el = document.querySelector(".here .map")
 
 function getColour(p) {
     if(p === ">90%") {
@@ -21,7 +19,7 @@ const markers = path.features.map(d => {
     return {
         "lat": d.properties.LAT,
         "lng": d.properties.LON,
-        "label": d.properties.DATELBL + " " + d.properties.TIMEZONE
+        "label": d.properties.DATELBL
     }
 });
 
@@ -53,6 +51,7 @@ const map = new GoogleMap({
     }
 })
 
+window.resize();
 
 
 //use this in map config, note f.getProperty(x) rather than f.properties.x
