@@ -1,12 +1,13 @@
 <div id="map"></div>
 <script>
 import { defaultMapStyle } from './defaultMapStyle'
-import probTopojson from '../../assets/topo2.json'
+import probTopojson from '../../assets/topo3.json'
 import * as topojson from "topojson-client";
 
 export default {
     oncreate() {
         markers = this.get("markers");
+        historyMarkers = this.get("historyMarkers")
         choropleth = this.get("choropleth");
         config = Object.assign(defaultConfig, this.get("config"));
         markerConfig = Object.assign(defaultMarkerConfig, this.get("markerConfig"));
@@ -24,6 +25,7 @@ let config;
 let markerConfig;
 let choropleth;
 let features;
+let historyMarkers;
 
 const defaultConfig = {
     center: { lat: 30.7316306, lng: -94.9396368 },
@@ -67,7 +69,7 @@ window.initMap = () => {
         type: "FeatureCollection",
         features: [{
 
-                "geometry": topojson.merge(probTopojson, probTopojson.objects["2017090606_wsp34knt120hr_5km"].geometries.filter(d => [">90%"].indexOf(d.properties.PERCENTAGE) > -1)),
+                "geometry": topojson.merge(probTopojson, probTopojson.objects["2017090700_wsp34knt120hr_5km"].geometries.filter(d => [">90%"].indexOf(d.properties.PERCENTAGE) > -1)),
                 "properties": {
                     "band": ">90%"
                 },
@@ -75,7 +77,7 @@ window.initMap = () => {
             },
             {
 
-                "geometry": topojson.merge(probTopojson, probTopojson.objects["2017090606_wsp34knt120hr_5km"].geometries.filter(d => ["50-60%", "60-70%", "70-80%", "80-90%"].indexOf(d.properties.PERCENTAGE) > -1)),
+                "geometry": topojson.merge(probTopojson, probTopojson.objects["2017090700_wsp34knt120hr_5km"].geometries.filter(d => ["50-60%", "60-70%", "70-80%", "80-90%"].indexOf(d.properties.PERCENTAGE) > -1)),
                 "properties": {
                     "band": "50-90%"
                 },
@@ -83,7 +85,7 @@ window.initMap = () => {
             },
             {
 
-                "geometry": topojson.merge(probTopojson, probTopojson.objects["2017090606_wsp34knt120hr_5km"].geometries.filter(d => ["40-50%", "30-40%", "20-30%", "10-20%"].indexOf(d.properties.PERCENTAGE) > -1)),
+                "geometry": topojson.merge(probTopojson, probTopojson.objects["2017090700_wsp34knt120hr_5km"].geometries.filter(d => ["40-50%", "30-40%", "20-30%", "10-20%"].indexOf(d.properties.PERCENTAGE) > -1)),
                 "properties": {
                     "band": "10-50%"
                 },
@@ -91,7 +93,7 @@ window.initMap = () => {
             },
             {
 
-                "geometry": topojson.merge(probTopojson, probTopojson.objects["2017090606_wsp34knt120hr_5km"].geometries.filter(d => ["<5%", "5-10%"].indexOf(d.properties.PERCENTAGE) > -1)),
+                "geometry": topojson.merge(probTopojson, probTopojson.objects["2017090700_wsp34knt120hr_5km"].geometries.filter(d => ["<5%", "5-10%"].indexOf(d.properties.PERCENTAGE) > -1)),
                 "properties": {
                     "band": "<10%"
                 },
@@ -100,11 +102,10 @@ window.initMap = () => {
         ]
     };
 
-    map.data.addGeoJson(geojson)
-    map.data.setStyle(choropleth)
-
-    // var kmzLayer = new google.maps.KmlLayer('http://www.nhc.noaa.gov/storm_graphics/api/AL112017_029adv_TRACK.kmz');
+    // var kmzLayer = new google.maps.KmlLayer('http://www.nhc.noaa.gov/gis/best_track/al112017_best_track.kmz');
     // kmzLayer.setMap(map);
+
+
 
     if (markers && markers.length > 0) {
         markers.forEach((m, i) => {
@@ -119,10 +120,10 @@ window.initMap = () => {
             //     }
             // });
 
-            if (m.label && i !== 0) {
+            if (m.label) {
                 let firstLabel = document.createElement("div");
 
-                firstLabel.innerHTML = "<div><b class='labels-title'>Forecast storm centre at </b>" + m.label + "</div>"
+                firstLabel.innerHTML = "<div><b class='labels-title'>Forecast storm path<br></b>" + m.label + "</div>"
 
                 var marker1 = new MarkerWithLabel({
                     position: m,
@@ -142,7 +143,7 @@ window.initMap = () => {
                         path: google.maps.SymbolPath.CIRCLE,
                         fillColor: '#000',
                         fillOpacity: 1,
-                        scale: 3,
+                        scale: 3.5,
                         strokeColor: 'white',
                         strokeWeight: 0
                     }
@@ -150,17 +151,82 @@ window.initMap = () => {
             }
         });
 
+        historyMarkers.forEach((m, i) => {
+            const markerSize = defaultMarkerConfig.markerSize;
+
+            if (m.label && i !== 0) {
+                let firstLabel = document.createElement("div");
+
+                firstLabel.innerHTML = "<div><b class='labels-title'>Forecasted storm path<br></b>" + m.label + "</div>"
+
+                var marker1 = new MarkerWithLabel({
+                    position: m,
+                    draggable: true,
+                    raiseOnDrag: true,
+                    map: map,
+                    labelContent: "",
+                    labelAnchor: new google.maps.Point(-8, 15),
+                    labelClass: "int-labels", // the CSS class for the label
+                    labelStyle: { opacity: 1 },
+                    // icon: {
+
+                    //     url: markerConfig.url,
+                    //     scaledSize: new google.maps.Size(markerConfig.markerSize, markerConfig.markerSize)
+                    // }
+                    icon: {
+                        path: google.maps.SymbolPath.CIRCLE,
+                        fillColor: '#000',
+                        fillOpacity: 1,
+                        scale: 3.5,
+                        strokeColor: 'white',
+                        strokeWeight: 0
+                    }
+                });
+            }
+        });
+
+        var lineSymbol = {
+            path: 'M 0,-1 0,1',
+            strokeOpacity: 1,
+            scale: 3
+        };
+
         var hurrPath = new google.maps.Polyline({
             path: markers,
             geodesic: true,
             strokeColor: '#000',
             strokeOpacity: 1.0,
-            strokeWeight: 2
+            strokeWeight: 0,
+            icons: [{
+                icon: lineSymbol,
+                offset: '0',
+                repeat: '17px'
+            }],
+            zIndex: 99999
         });
 
+        historyMarkers.push(markers[0])
+
+        var hurrHistoricalPath = new google.maps.Polyline({
+            path: historyMarkers,
+            geodesic: true,
+            strokeColor: '#000',
+            strokeOpacity: 1.0,
+            strokeWeight: 3,
+            zIndex: 99999
+        });
+
+        hurrHistoricalPath.setMap(map);
         hurrPath.setMap(map);
 
-        window.resize();
+
+        map.data.addGeoJson(geojson)
+        map.data.setStyle(choropleth)
+        // window.map = map;
+
+        if (window.resize) {
+            window.resize();
+        }
 
     }
 }
