@@ -161,7 +161,7 @@ gulp.task('build:js.main', buildJS('main.js'));
 gulp.task('build:js.app', buildJS('app.js'));
 gulp.task('build:js', ['build:js.main', 'build:js.app']);
 
-gulp.task('build:html', ['irma'], cb => {
+gulp.task('build:html', cb => {
     try {
         let render = requireUncached('./src/render.js').render;
 
@@ -189,7 +189,7 @@ gulp.task('build:assets', () => {
 });
 
 gulp.task('_build', ['clean'], cb => {
-    runSequence(['build:css', 'build:js', 'build:html', 'build:assets'], cb);
+    runSequence(['build:css', 'build:js', 'irma', 'build:html', 'build:assets'], cb);
 });
 
 // TODO: less hacky build/_build?
