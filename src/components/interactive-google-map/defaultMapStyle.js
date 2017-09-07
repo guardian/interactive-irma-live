@@ -48,7 +48,7 @@ export const defaultMapStyle = [
     "elementType": "labels",
     "stylers": [
       {
-        "visibility": "off"
+        "visibility": "on"
       }
     ]
   },
@@ -60,7 +60,7 @@ export const defaultMapStyle = [
         "color": "#bdbdbd"
       },
       {
-        "visibility": "off"
+        "visibility": "on"
       }
     ]
   },
@@ -241,7 +241,7 @@ export const defaultMapStyle = [
     "elementType": "geometry.fill",
     "stylers": [
       {
-        "color": "#d4edfc"
+        "color": "#aad8f1"
       }
     ]
   },
