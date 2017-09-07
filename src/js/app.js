@@ -54,7 +54,7 @@ const map = new GoogleMap({
             const colour = getColour(f.getProperty("band"));
             return {
                 fillColor: colour,
-                fillOpacity: 0.55,
+                fillOpacity: ["10-50%", "<10%"].indexOf(f.getProperty("band")) > -1 ? 0.2 : 0.65,
                 strokeColor: colour,
                 strokeWeight: 1,
                 strokeOpacity: 0.5
