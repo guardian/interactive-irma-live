@@ -91,6 +91,8 @@ window.initMap = () => {
             //     }
             // });
 
+            // console.log
+
             if (m.label && !inThePast(m.label)) {
                 let firstLabel = document.createElement("div");
 
@@ -103,9 +105,9 @@ window.initMap = () => {
                     map: map,
                     // labelContent: (i === markers.length - 1) ? firstLabel : m.label,
                     // labelAnchor: new google.maps.Point(-8, 15),
-                    labelContent: (i === markers.length - 1) ? firstLabel : m.label,
-                    labelAnchor: new google.maps.Point(-8, 15),
-                    labelClass: i === markers.length - 1 ? "int-labels always-show" : "int-labels", // the CSS class for the label
+                    labelContent: m.severity,
+                    labelAnchor: new google.maps.Point(3.5, 8),
+                    labelClass: i === markers.length - 1 ? "int-labels always-show" : (!m.severity) ? "int-labels int-labels--no-text" : "int-labels", // the CSS class for the label
                     labelStyle: { opacity: 1 },
                     // icon: {
 
@@ -116,13 +118,62 @@ window.initMap = () => {
                         path: google.maps.SymbolPath.CIRCLE,
                         fillColor: '#000',
                         fillOpacity: 1,
-                        scale: 3.5,
+                        scale: 0,
                         strokeColor: 'white',
                         strokeWeight: 0
                     }
                 });
             }
         });
+
+        if (markers && markers.length > 0) {
+            markers.forEach((m, i) => {
+                const markerSize = defaultMarkerConfig.markerSize;
+                // const marker = new google.maps.Marker({
+                //     map: map,
+                //     position: m,
+                //     icon: {
+
+                //         url: markerConfig.url,
+                //         scaledSize: new google.maps.Size(markerConfig.markerSize, markerConfig.markerSize)
+                //     }
+                // });
+
+                // console.log
+
+                if (m.label && !inThePast(m.label)) {
+                    let firstLabel = document.createElement("div");
+
+                    firstLabel.innerHTML = "<div><b class='labels-title'>Forecast storm path & severity<br></b>" + m.label + "</div>"
+
+                    var marker1 = new MarkerWithLabel({
+                        position: m,
+                        draggable: false,
+                        raiseOnDrag: false,
+                        map: map,
+                        labelContent: (i === markers.length - 1) ? firstLabel : m.label,
+                        labelAnchor: new google.maps.Point(-15, 20),
+                        // labelContent: m.severity,
+                        // labelAnchor: new google.maps.Point(3.5, 8),
+                        labelClass: i === markers.length - 1 ? "int-labels-text always-show" : (!m.severity) ? "int-labels-text int-labels--no-text" : "int-labels-text", // the CSS class for the label
+                        labelStyle: { opacity: 1 },
+                        // icon: {
+
+                        //     url: markerConfig.url,
+                        //     scaledSize: new google.maps.Size(markerConfig.markerSize, markerConfig.markerSize)
+                        // }
+                        icon: {
+                            path: google.maps.SymbolPath.CIRCLE,
+                            fillColor: '#000',
+                            fillOpacity: 1,
+                            scale: 0,
+                            strokeColor: 'white',
+                            strokeWeight: 0
+                        }
+                    });
+                }
+            });
+        }
 
         historyMarkers.forEach((m, i) => {
             const markerSize = defaultMarkerConfig.markerSize;
@@ -134,9 +185,9 @@ window.initMap = () => {
                     draggable: false,
                     raiseOnDrag: false,
                     map: map,
-                    labelContent: '',//i === historyMarkers.length - 1 ? "Storm path" : '',
-                    labelAnchor: new google.maps.Point(70, 0),
-                    labelClass: "int-labels", // the CSS class for the label
+                    labelContent: m.severity, //i === historyMarkers.length - 1 ? "Storm path" : '',
+                    labelAnchor: new google.maps.Point(3, 7),
+                    labelClass: (m.severity === "") ? "int-labels int-labels--no-text" : "int-labels", // the CSS class for the label
                     labelStyle: { opacity: 1 },
                     // icon: {
 
@@ -147,7 +198,7 @@ window.initMap = () => {
                         path: google.maps.SymbolPath.CIRCLE,
                         fillColor: '#000',
                         fillOpacity: 1,
-                        scale: 3.5,
+                        scale: 0,
                         strokeColor: 'white',
                         strokeWeight: 0
                     }

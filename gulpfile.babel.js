@@ -137,6 +137,8 @@ gulp.task('irma', ['clean'], cb => {
         console.log(code === 0 ? 'irma script successful' : 'irma script errored')
         cb(code)
     })
+
+    // cb();
 })
 
 gulp.task('clean', () => del(buildDir));

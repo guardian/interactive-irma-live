@@ -49,10 +49,13 @@ let markers = path.features
     });
 
 let historyMarkers = history.features.map(d => {
+    let severity = d.properties.styleUrl.slice(4,5);
+    console.log(severity)
     return {
         "lat": d.geometry.coordinates[1],
         "lng": d.geometry.coordinates[0],
-        "label": d.properties.Name
+        "label": d.properties.Name,
+        "severity": severity
     }
 });
 

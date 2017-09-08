@@ -21,6 +21,7 @@ export async function render() {
     		<div class="scale__section" data-label="50-90%" style="background-color: #ff9b0b"></div>
     		<div class="scale__section" data-label="10-50%" style="background-color: #ffce4b"></div>
     		<div class="scale__section" data-label="<10%" style="background-color: #ffffaf"></div>
+            <div class="scale__text">Number represents hurrican severity</div>
     	</div>
     	<div class="map"></div>
     	<div class="notes">All times in Atlantic Standard Time | Source: US National Hurricane Center | Last updated: ${date}</div>
