@@ -71,6 +71,10 @@
         display: block !important;
     }
 
+    &.always-show {
+        display: block !important;
+    }
+
     color: rgba(0,0,0,0.9);
     font-weight: bold;
 }

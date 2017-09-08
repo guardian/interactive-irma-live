@@ -104,7 +104,7 @@ window.initMap = () => {
                     map: map,
                     labelContent: (i === markers.length - 1) ? firstLabel : m.label,
                     labelAnchor: new google.maps.Point(-8, 15),
-                    labelClass: "int-labels", // the CSS class for the label
+                    labelClass: i === markers.length - 1 ? "int-labels always-show" : "int-labels", // the CSS class for the label
                     labelStyle: { opacity: 1 },
                     // icon: {
 
