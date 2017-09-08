@@ -1,6 +1,6 @@
-import fs from 'fs'
-import * as topojson from 'topojson'
-import * as turf from '@turf/turf'
+var fs = require("fs")
+var topojson = require("topojson")
+
 
 const cone = JSON.parse(fs.readFileSync('data/' + process.argv[2]))
 const dates = JSON.parse(fs.readFileSync('data/' + process.argv[3]))

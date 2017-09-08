@@ -1,4 +1,4 @@
-URL=`babel-node scrape.js | tail -1`
+URL=`node scrape.js | tail -1`
 
 rm -rf data
 mkdir -p data
@@ -17,6 +17,6 @@ topojson -o dates.json *pts.shp -p
 togeojson al112017.kml > track.json
 
 cd ..
-babel-node ./convert.js cone.json dates.json
+node ./convert.js cone.json dates.json
 
-cp -R data/ ../assets/
+cp -R data ../assets/

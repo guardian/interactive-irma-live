@@ -34,7 +34,6 @@ let markers = path.features
 
         return date > moment()
 
-
         //console.log(moment(f.properties.ADVDATE).format('D MMMM, h:mm a'))
 
         //ADVDATE":"200 PM AST Thu Sep 07 2017
@@ -56,6 +55,12 @@ let historyMarkers = history.features.map(d => {
     }
 });
 
+var lineSymbol = {
+            path: 'M 0,-1 0,1',
+            strokeOpacity: 1,
+            scale: 3
+        };
+
 
 const map = new GoogleMap({
     target: el,
@@ -75,10 +80,15 @@ const map = new GoogleMap({
             const colour = getColour(f.getProperty("band"));
             return {
                 fillColor: colour,
-                fillOpacity: ["10-50%", "<10%"].indexOf(f.getProperty("band")) > -1 ? 0.2 : 0.65,
+                fillOpacity: ["10-50%", "<10%"].indexOf(f.getProperty("band")) > -1 ? 0.2 : 0.35,
                 strokeColor: colour,
                 strokeWeight: f.getProperty('band') === '50-90%' ? 0 : 1,
-                strokeOpacity: 0.5
+                strokeOpacity: 0.5,
+                icons: [{
+                icon: lineSymbol,
+                offset: '0',
+                repeat: '17px'
+            }],
             }
         },
         key: "AIzaSyBGZVyAXHJwoA4Ea-a3kuD1AsuZwbrnLlM"
