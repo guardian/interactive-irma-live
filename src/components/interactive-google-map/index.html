@@ -6,7 +6,7 @@ import probTopojson from '../../assets/topo3.json'
 
 export default {
     oncreate() {
-        markers = this.get("markers").slice(1);
+        markers = this.get("markers");
         historyMarkers = this.get("historyMarkers")
         choropleth = this.get("choropleth");
         config = Object.assign(defaultConfig, this.get("config"));
@@ -70,6 +70,13 @@ window.initMap = () => {
     // var kmzLayer = new google.maps.KmlLayer('http://www.nhc.noaa.gov/gis/best_track/al112017_best_track.kmz');
     // kmzLayer.setMap(map);
 
+    const inThePast = str => {
+        const d = new Date()
+
+
+
+    }
+
 
 
     if (markers && markers.length > 0) {
@@ -85,7 +92,7 @@ window.initMap = () => {
             //     }
             // });
 
-            if (m.label) {
+            if (m.label && !inThePast(m.label)) {
                 let firstLabel = document.createElement("div");
 
                 firstLabel.innerHTML = "<div><b class='labels-title'>Forecast storm path<br></b>" + m.label + "</div>"
@@ -154,7 +161,7 @@ window.initMap = () => {
         };
 
         var hurrPath = new google.maps.Polyline({
-            path: markers,
+            path: historyMarkers.slice(-1).concat(markers),
             geodesic: true,
             strokeColor: '#000',
             strokeOpacity: 1.0,

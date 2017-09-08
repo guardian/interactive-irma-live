@@ -2,6 +2,7 @@ import GoogleMap from '../components/interactive-google-map/index.html'
 import path from '../assets/path.json'
 
 import history from '../assets/data/track.json'
+import moment from 'moment'
 
 // import history from '../assets/history.json'
 
@@ -19,11 +20,31 @@ function getColour(p) {
     }
 }
 
-let markers = path.features.map(d => {
+let markers = path.features
+    .filter(f => {
+
+        //2017-09-08 8:00 AM Fri EDT
+
+        const split = f.properties.FLDATELBL.split(' ')
+
+        const hour = Number(split[1].slice(0, -3))
+
+        let date = moment(split[0])
+        date = date.hour( split[2] === 'AM' ? hour : hour + 12)
+
+        return date > moment()
+
+
+        //console.log(moment(f.properties.ADVDATE).format('D MMMM, h:mm a'))
+
+        //ADVDATE":"200 PM AST Thu Sep 07 2017
+
+    })
+        .map(d => {
     return {
         "lat": d.properties.LAT,
         "lng": d.properties.LON,
-        "label": d.properties.DATELBL
+        "label": d.properties.DATELBL,
     }
 });
 
