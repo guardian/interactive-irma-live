@@ -9,11 +9,11 @@ import moment from 'moment'
 const el = document.querySelector(".here .map")
 
 function getColour(p) {
-    if(p === ">90%") {
+    if (p === ">90%") {
         return "#b51800"
-    } else if(p === "50-90%") {
+    } else if (p === "50-90%") {
         return "#ff9b0b"
-    } else if(p === "10-50%"){
+    } else if (p === "10-50%") {
         return "#ffce4b"
     } else {
         return "#ffffaf"
@@ -30,7 +30,7 @@ let markers = path.features
         const hour = Number(split[1].slice(0, -3))
 
         let date = moment(split[0])
-        date = date.hour( split[2] === 'AM' ? hour : hour + 12)
+        date = date.hour(split[2] === 'AM' ? hour : hour + 12)
 
         return date > moment()
 
@@ -39,13 +39,14 @@ let markers = path.features
         //ADVDATE":"200 PM AST Thu Sep 07 2017
 
     })
-        .map(d => {
-    return {
-        "lat": d.properties.LAT,
-        "lng": d.properties.LON,
-        "label": d.properties.DATELBL,
-    }
-});
+    .map(d => {
+        return {
+            "lat": d.properties.LAT,
+            "lng": d.properties.LON,
+            "label": d.properties.DATELBL,
+            "severity": d.properties.SSNUM
+        }
+    });
 
 let historyMarkers = history.features.map(d => {
     return {
@@ -56,10 +57,10 @@ let historyMarkers = history.features.map(d => {
 });
 
 var lineSymbol = {
-            path: 'M 0,-1 0,1',
-            strokeOpacity: 1,
-            scale: 3
-        };
+    path: 'M 0,-1 0,1',
+    strokeOpacity: 1,
+    scale: 3
+};
 
 
 const map = new GoogleMap({
@@ -85,17 +86,17 @@ const map = new GoogleMap({
                 strokeWeight: f.getProperty('band') === '50-90%' ? 0 : 1,
                 strokeOpacity: 0.5,
                 icons: [{
-                icon: lineSymbol,
-                offset: '0',
-                repeat: '17px'
-            }],
+                    icon: lineSymbol,
+                    offset: '0',
+                    repeat: '17px'
+                }],
             }
         },
         key: "AIzaSyBGZVyAXHJwoA4Ea-a3kuD1AsuZwbrnLlM"
     }
 })
 
-if(window.resize) {
+if (window.resize) {
     window.resize();
 }
 

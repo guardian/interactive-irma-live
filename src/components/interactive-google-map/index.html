@@ -2,7 +2,6 @@
 <script>
 import { defaultMapStyle } from './defaultMapStyle'
 import geojson from '../../assets/data/cone_merged.json'
-import probTopojson from '../../assets/topo3.json'
 
 export default {
     oncreate() {
@@ -102,6 +101,8 @@ window.initMap = () => {
                     draggable: false,
                     raiseOnDrag: false,
                     map: map,
+                    // labelContent: (i === markers.length - 1) ? firstLabel : m.label,
+                    // labelAnchor: new google.maps.Point(-8, 15),
                     labelContent: (i === markers.length - 1) ? firstLabel : m.label,
                     labelAnchor: new google.maps.Point(-8, 15),
                     labelClass: i === markers.length - 1 ? "int-labels always-show" : "int-labels", // the CSS class for the label
@@ -182,6 +183,17 @@ window.initMap = () => {
             strokeWeight: 3,
             zIndex: 99999
         });
+
+
+        var hurrHistoricalPath = new google.maps.Polyline({
+            path: historyMarkers,
+            geodesic: true,
+            strokeColor: '#000',
+            strokeOpacity: 1.0,
+            strokeWeight: 3,
+            zIndex: 99999
+        });
+
 
         hurrHistoricalPath.setMap(map);
         hurrPath.setMap(map);
