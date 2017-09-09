@@ -18,8 +18,6 @@ export default {
     }
 }
 
-console.log(geojson)
-
 let infowindow;
 let markers;
 let config;
@@ -107,7 +105,7 @@ window.initMap = () => {
                     // labelAnchor: new google.maps.Point(-8, 15),
                     labelContent: m.severity,
                     labelAnchor: new google.maps.Point(3.5, 8),
-                    labelClass: i === markers.length - 1 ? "int-labels always-show" : (!m.severity) ? "int-labels int-labels--no-text" : "int-labels", // the CSS class for the label
+                    labelClass: (!m.severity) ? "int-labels int-labels--no-text" : "int-labels", // the CSS class for the label
                     labelStyle: { opacity: 1 },
                     // icon: {
 
@@ -151,11 +149,11 @@ window.initMap = () => {
                         draggable: false,
                         raiseOnDrag: false,
                         map: map,
-                        labelContent: (i === markers.length - 1) ? firstLabel : m.label,
+                        labelContent: (i === 5) ? firstLabel : m.label,
                         labelAnchor: new google.maps.Point(-15, 20),
                         // labelContent: m.severity,
                         // labelAnchor: new google.maps.Point(3.5, 8),
-                        labelClass: i === markers.length - 1 ? "int-labels-text always-show" : (!m.severity) ? "int-labels-text int-labels--no-text" : "int-labels-text", // the CSS class for the label
+                        labelClass: i === 5 ? "int-labels-text always-show" : (!m.severity) ? "int-labels-text int-labels--no-text" : "int-labels-text", // the CSS class for the label
                         labelStyle: { opacity: 1 },
                         // icon: {
 
@@ -186,7 +184,7 @@ window.initMap = () => {
                     raiseOnDrag: false,
                     map: map,
                     labelContent: m.severity, //i === historyMarkers.length - 1 ? "Storm path" : '',
-                    labelAnchor: new google.maps.Point(3, 7),
+                    labelAnchor: new google.maps.Point(3.5, 8),
                     labelClass: (m.severity === "") ? "int-labels int-labels--no-text" : "int-labels", // the CSS class for the label
                     labelStyle: { opacity: 1 },
                     // icon: {

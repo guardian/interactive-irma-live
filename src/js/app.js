@@ -1,5 +1,5 @@
 import GoogleMap from '../components/interactive-google-map/index.html'
-import path from '../assets/path.json'
+import path from '../assets/data/dates.json'
 
 import history from '../assets/data/track.json'
 import moment from 'moment'
@@ -20,25 +20,9 @@ function getColour(p) {
     }
 }
 
-let markers = path.features
-    .filter(f => {
+const key = Object.keys(path.objects)[0];
 
-        //2017-09-08 8:00 AM Fri EDT
-
-        const split = f.properties.FLDATELBL.split(' ')
-
-        const hour = Number(split[1].slice(0, -3))
-
-        let date = moment(split[0])
-        date = date.hour(split[2] === 'AM' ? hour : hour + 12)
-
-        return date > moment()
-
-        //console.log(moment(f.properties.ADVDATE).format('D MMMM, h:mm a'))
-
-        //ADVDATE":"200 PM AST Thu Sep 07 2017
-
-    })
+let markers = path.objects[key].geometries
     .map(d => {
         return {
             "lat": d.properties.LAT,
@@ -50,7 +34,6 @@ let markers = path.features
 
 let historyMarkers = history.features.map(d => {
     let severity = d.properties.styleUrl.slice(4,5);
-    console.log(severity)
     return {
         "lat": d.geometry.coordinates[1],
         "lng": d.geometry.coordinates[0],

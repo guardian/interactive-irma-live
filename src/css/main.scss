@@ -123,6 +123,10 @@
     box-sizing: border-box;
     padding-top: 0px;
     transform: translate(-3.5px, 0px);
+    text-shadow: -1px -1px 0 rgba(255,255,255,0.35),  
+    1px -1px 0 rgba(255,255,255,0.35),
+    -1px 1px 0 rgba(255,255,255,0.35),
+     1px 1px 0 rgba(255,255,255,0.35);
     // p
 
     @include mq($until: 600px) {
@@ -136,14 +140,14 @@
         // }
     }
 
-    // display: none !important;
-    // &:nth-of-type(odd) {
-    //     display: block !important;
-    // }
+    display: none !important;
+    &:nth-of-type(even) {
+        display: block !important;
+    }
 
-    // &.always-show {
-    //     display: block !important;
-    // }
+    &.always-show {
+        display: block !important;
+    }
 
     color: #000;
     font-weight: bold;
