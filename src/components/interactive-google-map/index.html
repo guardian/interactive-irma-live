@@ -149,11 +149,11 @@ window.initMap = () => {
                         draggable: false,
                         raiseOnDrag: false,
                         map: map,
-                        labelContent: (i === 5) ? firstLabel : m.label,
+                        labelContent: (i === 3) ? firstLabel : m.label,
                         labelAnchor: new google.maps.Point(-15, 20),
                         // labelContent: m.severity,
                         // labelAnchor: new google.maps.Point(3.5, 8),
-                        labelClass: i === 5 ? "int-labels-text always-show" : (!m.severity) ? "int-labels-text int-labels--no-text" : "int-labels-text", // the CSS class for the label
+                        labelClass: i === 3 ? "int-labels-text always-show" : (!m.severity) ? "int-labels-text int-labels--no-text" : "int-labels-text", // the CSS class for the label
                         labelStyle: { opacity: 1 },
                         // icon: {
 
