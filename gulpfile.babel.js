@@ -125,20 +125,20 @@ function readOpt(fn) {
 
 gulp.task('irma', ['clean'], cb => {
 
-    // const cmd = child_process.spawn('./irma.sh', [], { cwd : './src/server/' })
+    const cmd = child_process.spawn('./irma.sh', [], { cwd : './src/server/' })
 
-    // cmd.stdout.setEncoding('utf-8')
-    // cmd.stderr.setEncoding('utf-8')
+    cmd.stdout.setEncoding('utf-8')
+    cmd.stderr.setEncoding('utf-8')
 
-    // cmd.stdout.on('data', d => console.log(d.trim()))
-    // cmd.stderr.on('data', d => console.log(d.trim()))
+    cmd.stdout.on('data', d => console.log(d.trim()))
+    cmd.stderr.on('data', d => console.log(d.trim()))
 
-    // cmd.on('close', code => {
-    //     console.log(code === 0 ? 'irma script successful' : 'irma script errored')
-    //     cb(code)
-    // })
+    cmd.on('close', code => {
+        console.log(code === 0 ? 'irma script successful' : 'irma script errored')
+        cb(code)
+    })
 
-    cb();
+    // cb();
 })
 
 gulp.task('clean', () => del(buildDir));
