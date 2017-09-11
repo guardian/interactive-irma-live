@@ -1,6 +1,6 @@
-import fs from 'fs'
-import * as topojson from 'topojson'
-import * as turf from '@turf/turf'
+var fs = require("fs")
+var topojson = require("topojson")
+var simplify = require("simplify-geojson")
 
 const cone = JSON.parse(fs.readFileSync('data/' + process.argv[2]))
 const dates = JSON.parse(fs.readFileSync('data/' + process.argv[3]))
@@ -28,6 +28,8 @@ const mergeFeatures = topo => {
 
 const coneMerged = mergeFeatures(topojson.topology({ irma : cone }))
 
-fs.writeFileSync('data/cone_merged.json', JSON.stringify(coneMerged, null, 2))
+const simple = simplify(coneMerged, 0.035)
+
+fs.writeFileSync('data/cone_merged.json', JSON.stringify(simple, null, 2))
 
 console.log('Merged shapes.')
