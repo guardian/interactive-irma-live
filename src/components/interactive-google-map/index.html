@@ -44,6 +44,12 @@ const defaultMarkerConfig = {
     url: `${process.env.PATH}/assets/map-icon.png`
 }
 
+const cols = ['#850000', '#bd0026', '#f03b20', '#fd8d3c', '#fecc5c', '#bdbdbd'].reverse()
+const severityScale = str => {
+    if(!str) { return cols[0] }
+        return cols[Number(str)]//'#b51800'
+}
+
 window.initMap = () => {
     var MarkerWithLabel = addExtra();
     const map = new google.maps.Map(document.querySelector("#map"), Object.assign(defaultConfig, config));
@@ -104,10 +110,13 @@ window.initMap = () => {
                     map: map,
                     // labelContent: (i === markers.length - 1) ? firstLabel : m.label,
                     // labelAnchor: new google.maps.Point(-8, 15),
-                    labelContent: m.severity,
+                    labelContent: '',
                     labelAnchor: new google.maps.Point(3.5, 8),
                     labelClass: (!m.severity) ? "int-labels int-labels--no-text" : "int-labels", // the CSS class for the label
-                    labelStyle: { opacity: 1 },
+                    labelStyle: {
+                        opacity: 1,
+                        "background-color" : severityScale(m.severity)
+                    },
                     // icon: {
 
                     //     url: markerConfig.url,
@@ -155,7 +164,9 @@ window.initMap = () => {
                         // labelContent: m.severity,
                         // labelAnchor: new google.maps.Point(3.5, 8),
                         labelClass: i === markers.length - 1 ? "int-labels-text always-show" : (!m.severity) ? "int-labels-text int-labels--no-text" : "int-labels-text", // the CSS class for the label
-                        labelStyle: { opacity: 1 },
+                        labelStyle: {
+                            opacity: 1
+                        },
                         // icon: {
 
                         //     url: markerConfig.url,
@@ -184,10 +195,13 @@ window.initMap = () => {
                     draggable: false,
                     raiseOnDrag: false,
                     map: map,
-                    labelContent: m.severity, //i === historyMarkers.length - 1 ? "Storm path" : '',
+                    labelContent: '', //i === historyMarkers.length - 1 ? "Storm path" : '',
                     labelAnchor: new google.maps.Point(3.5, 8),
                     labelClass: (m.severity === "") ? "int-labels int-labels--no-text" : "int-labels", // the CSS class for the label
-                    labelStyle: { opacity: 1 },
+                    labelStyle: {
+                        opacity: 1,
+                        "background-color" : severityScale(m.severity)
+                    },
                     // icon: {
 
                     //     url: markerConfig.url,
@@ -208,45 +222,83 @@ window.initMap = () => {
         var lineSymbol = {
             path: 'M 0,-1 0,1',
             strokeOpacity: 1,
-            scale: 3
+            scale: 2
         };
 
-        var hurrPath = new google.maps.Polyline({
-            path: historyMarkers.slice(-1).concat(markers),
-            geodesic: true,
-            strokeColor: '#000',
-            strokeOpacity: 1.0,
-            strokeWeight: 0,
-            icons: [{
-                icon: lineSymbol,
-                offset: '0',
-                repeat: '17px'
-            }],
-            zIndex: 99999
-        });
+        // var hurrPath = new google.maps.Polyline({
+        //     path: historyMarkers.slice(-1).concat(markers),
+        //     geodesic: true,
+        //     strokeColor: '#000',
+        //     strokeOpacity: 1.0,
+        //     strokeWeight: 0,
+        //     icons: [{
+        //         icon: lineSymbol,
+        //         offset: '0',
+        //         repeat: '17px'
+        //     }],
+        //     zIndex: 99999
+        // });
 
-        var hurrHistoricalPath = new google.maps.Polyline({
-            path: historyMarkers,
-            geodesic: true,
-            strokeColor: '#000',
-            strokeOpacity: 1.0,
-            strokeWeight: 3,
-            zIndex: 99999
-        });
-
-
-        var hurrHistoricalPath = new google.maps.Polyline({
-            path: historyMarkers,
-            geodesic: true,
-            strokeColor: '#000',
-            strokeOpacity: 1.0,
-            strokeWeight: 3,
-            zIndex: 99999
-        });
+        // var hurrHistoricalPath = new google.maps.Polyline({
+        //     path: historyMarkers,
+        //     geodesic: true,
+        //     strokeColor: '#000',
+        //     strokeOpacity: 1.0,
+        //     strokeWeight: 3,
+        //     zIndex: 99999
+        // });
 
 
-        hurrHistoricalPath.setMap(map);
-        hurrPath.setMap(map);
+        // var hurrHistoricalPath = new google.maps.Polyline({
+        //     path: historyMarkers,
+        //     geodesic: true,
+        //     strokeColor: '#000',
+        //     strokeOpacity: 1.0,
+        //     strokeWeight: 3,
+        //     zIndex: 99999
+        // });
+
+
+        // hurrHistoricalPath.setMap(map);
+        // hurrPath.setMap(map);
+
+        historyMarkers.slice(-1).concat(markers).forEach((h, i, arr) => {
+            if(i < arr.length - 1) {
+
+                const p1 = arr[i]
+                const p2 = arr[i+1]
+                const pl = new google.maps.Polyline({
+                    path: [p1, p2],
+                    geodesic: true,
+                    strokeColor: severityScale(p1.severity),
+                    strokeOpacity: 1.0,
+                    icons: [{
+                     icon: lineSymbol,
+                     offset: '0',
+                     repeat: '8px'
+                    }],             
+                    strokeWeight: 0,
+                    zIndex: 99999
+                })
+                pl.setMap(map)
+            }
+        })
+
+        historyMarkers.forEach((h, i, arr) => {
+            if(i < arr.length - 1) {
+                const p1 = arr[i]
+                const p2 = arr[i+1]
+                const pl = new google.maps.Polyline({
+                    path: [p1, p2],
+                    geodesic: true,
+                    strokeColor: severityScale(p1.severity),
+                    strokeOpacity: 1.0,
+                    strokeWeight: 3,
+                    zIndex: 99999
+                })
+                pl.setMap(map)
+            }
+        })
 
 
         map.data.addGeoJson(geojson)
