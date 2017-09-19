@@ -20,6 +20,19 @@ function getColour(p) {
     }
 }
 
+const parseLabel = str => {
+
+    if(str === '0600 UTC SEP 06') { return 'Wed 6' }
+    if(str === '0600 UTC SEP 07') { return 'Thu 7' }
+    if(str === '0600 UTC SEP 08') { return 'Fri 8' }
+    if(str === '0600 UTC SEP 09') { return 'Sat 9' }
+    if(str === '0600 UTC SEP 10') { return 'Sun 10' }
+    if(str === '0600 UTC SEP 11') { return 'Mon 11' }
+
+    return ''
+
+}
+
 const key = Object.keys(path.objects)[0];
 
 let markers = path.objects[key].geometries
@@ -37,7 +50,7 @@ let historyMarkers = history.features.map(d => {
     return {
         "lat": d.geometry.coordinates[1],
         "lng": d.geometry.coordinates[0],
-        "label": d.properties.Name,
+        "label": parseLabel(d.properties.name),
         "severity": severity
     }
 });
@@ -78,6 +91,19 @@ const map = new GoogleMap({
                 }],
             }
         },
+        swathStyle : (f, i) => {
+
+            const name = f.getProperty('Name')
+
+            const colour = name === '64' ? '#fd8d3c' : '#bdbdbd'//'#ff9b0b'
+            return {
+                fillColor : colour,
+                fillOpacity: 0.6,
+                strokeOpacity: 0
+            }
+
+        },
+
         key: "AIzaSyBGZVyAXHJwoA4Ea-a3kuD1AsuZwbrnLlM"
     }
 })

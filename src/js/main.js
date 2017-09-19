@@ -24,3 +24,12 @@ if(inIframe()) {
     html.style.margin = 0;
     body.style.margin = 0;
 }
+
+try {
+
+    var els = window.parent.document.querySelectorAll(".element-atom iframe");
+        for(var i = 0; i < els.length; i++) {
+            els[i].style.width = "100%";
+        }
+
+} catch(err) {}

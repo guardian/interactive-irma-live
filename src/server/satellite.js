@@ -4,10 +4,10 @@ import request from 'request'
 import fs from 'fs'
 import child_process from 'child_process'
 
-const startDay = '2017-09-06'
-const endDay = '2017-09-06'
-const startString = '08:00:35'
-const endString = '20:00:35'
+const startDay = '2017-09-18'
+const endDay = '2017-09-19'
+const startString = '00:00:38'
+const endString = '09:45:39'
 
 let h1, m1, s1;
 [h1, m1, s1] = startString.split(':')
@@ -19,6 +19,8 @@ const start = moment(startDay).set({ 'hour' : h1, 'minute' : m1, 'second' : s1 }
 
 const end = moment(endDay).set({ 'hour' : h2, 'minute' : m2, 'second' : s2 })
 
+const interval = 15
+
 console.log(end.format('YYYY-MM-DD HHmmss'))
 
 let current = start
@@ -27,7 +29,7 @@ let urls = new Set()
 
 const wait = ms => new Promise((resolve, reject) => setTimeout(() => resolve() , ms));
 
-const possible = ['35', '34', '36', '33', '37']
+const possible = ['39', '38', '35', '40', '34', '36', '33', '37']
 
 const requestRetry = (url, n, theIndex) => {
 
@@ -152,6 +154,6 @@ while(current <= end) {
 		}
 	}
 
-	current = current.add('minute', 30)
+	current = current.add('minute', interval)
 
 }

@@ -190,7 +190,7 @@ gulp.task('build:assets', () => {
     return gulp.src('src/assets/**/*').pipe(gulp.dest(`${buildDir}/assets`));
 });
 
-gulp.task('_build', ['irma'], cb => {
+gulp.task('_build', ['clean'], cb => {
     runSequence(['build:css', 'build:js', 'build:html', 'build:assets'], cb);
 });
 
@@ -300,7 +300,8 @@ gulp.task('default', ['local'], () => {
 
     browser.init({
         'server': {
-            'baseDir': buildDir
+            'baseDir': buildDir,
+            'open' : false
         },
         'port': 8000
     });
