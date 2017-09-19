@@ -54,7 +54,7 @@ const map = new GoogleMap({
     data: {
         el: el,
         config: {
-            center: { lat: 24.266188981138203, lng: -71.71453914375003 },
+            center: { lat: 20.487942724704283, lng: -61.91473445625003 },
             zoom: el.clientWidth > 600 ? 5 : 4
         },
         markers: markers,
@@ -66,10 +66,10 @@ const map = new GoogleMap({
         choropleth: f => {
             const colour = getColour(f.getProperty("band"));
             return {
-                fillColor: colour,
-                fillOpacity: ["10-50%", "<10%"].indexOf(f.getProperty("band")) > -1 ? 0.2 : 0.35,
-                strokeColor: colour,
-                strokeWeight: f.getProperty('band') === '50-90%' ? 0 : 1,
+                fillColor: "#767676",
+                fillOpacity: 0.35,
+                strokeColor: "#767676",
+                strokeWeight: 1,
                 strokeOpacity: 0.5,
                 icons: [{
                     icon: lineSymbol,
