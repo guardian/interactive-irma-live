@@ -303,7 +303,7 @@ window.initMap = () => {
 
         map.data.addGeoJson(geojson)
         map.data.setStyle(choropleth)
-        // window.map = map;
+        window.map = map;
 
         if (window.resize) {
             window.resize();
