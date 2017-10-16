@@ -22,12 +22,24 @@ function getColour(p) {
 
 const key = Object.keys(path.objects)[0];
 
+const getDate = (d) => {
+    console.log(d.properties)
+    // if(d.properties["FLDATEBL"]) {
+        const date = d.properties["FLDATELBL"].replace(/AST/g, "-04:00");
+
+        return moment(date, "YYYY-MM-DD h:mm AA ddd ZZ:zz").format("dddd HH:mm");
+    // } else {
+    //     return "";
+    // }
+}
+
+
 let markers = path.objects[key].geometries
     .map(d => {
         return {
             "lat": d.properties.LAT,
             "lng": d.properties.LON,
-            "label": d.properties.DATELBL,
+            "label": getDate(d),
             "severity": d.properties.SSNUM
         }
     });
@@ -47,7 +59,6 @@ var lineSymbol = {
     strokeOpacity: 1,
     scale: 3
 };
-
 
 const map = new GoogleMap({
     target: el,

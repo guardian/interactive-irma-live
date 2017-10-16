@@ -101,7 +101,7 @@ window.initMap = () => {
             if (m.label && !inThePast(m.label)) {
                 let firstLabel = document.createElement("div");
 
-                firstLabel.innerHTML = "<div><b class='labels-title'>Forecast storm path<br></b>" + m.label + "</div>"
+                firstLabel.innerHTML = m.label
 
                 var marker1 = new MarkerWithLabel({
                     position: m,
@@ -152,7 +152,7 @@ window.initMap = () => {
                 if (m.label && !inThePast(m.label)) {
                     let firstLabel = document.createElement("div");
 
-                    firstLabel.innerHTML = "<div><b class='labels-title'>Forecast storm path & severity<br></b>" + m.label + "</div>"
+                    firstLabel.innerHTML = m.label
 
                     var marker1 = new MarkerWithLabel({
                         position: m,
