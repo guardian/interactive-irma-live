@@ -27,7 +27,7 @@ export async function render() {
 	            <div class="scale__section" data-label="1" style="background-color: #fecc5c"></div>
     	    </div>
 
-    		<div class="scale__section" data-label="The storm's centre is likely to pass through this area" style="background-color: #767676"></div>
+    		<div class="scale__expl">The grey area shows where the storm's centre might move to. It does not indicate the size of the storm</div>
     	</div>
     	<div class="map"></div>
     	<div class="notes">All times in Eastern Daylight Time | Source: US National Hurricane Center | Last updated: ${date}</div>

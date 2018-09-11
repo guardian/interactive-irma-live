@@ -3,6 +3,14 @@ const guardianStyle = {
   base: {
     style:[
       {
+        "featureType": "road",
+        "stylers": [
+        {
+        "visibility": "off"
+        }
+        ]
+      },
+      {
         "elementType": "geometry.stroke",
         "stylers": [
           {
@@ -31,7 +39,10 @@ const guardianStyle = {
         "elementType": "geometry",
         "stylers": [
           {
-            "visibility": "off"
+            "visibility": "on"
+          },
+          {
+            "color": "#767676"
           }
         ]
       },
@@ -118,7 +129,7 @@ const guardianStyle = {
         "elementType": "geometry.fill",
         "stylers": [
           {
-            "color": "#dee9c0"
+            "visibility" : "off"
           }
         ]
       },
