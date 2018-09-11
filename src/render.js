@@ -12,7 +12,7 @@ export async function render() {
 // const shp = await (shapefile.open("example.shp")
 //   .then(source => source.read())
 
-    const date = moment().utcOffset('-0400').format('D MMMM, h:mm a')
+    const date = moment().utcOffset('-0400').format('D MMMM, h:mma')
 
     console.log('rendering...')
 
@@ -27,7 +27,7 @@ export async function render() {
 	            <div class="scale__section" data-label="1" style="background-color: #fecc5c"></div>
     	    </div>
 
-    		<div class="scale__expl">The grey cone shows the likely path of the center of the hurricane</div>
+    		<div class="scale__expl">The grey cone shows the likely path of the centre of the hurricane</div>
     	</div>
     	<div class="map"></div>
     	<div class="notes">All times in Eastern Daylight Time | Source: US National Hurricane Center | Last updated: ${date}</div>

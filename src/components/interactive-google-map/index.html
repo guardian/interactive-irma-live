@@ -26,6 +26,12 @@ let choropleth;
 let features;
 let historyMarkers;
 
+const fix = str => {
+
+    return str.replace(' PM', 'pm').replace(' AM', 'am')
+
+}
+
 const defaultConfig = {
     center: { lat: 30.7316306, lng: -94.9396368 },
     scrollwheel: true,
@@ -108,7 +114,7 @@ window.initMap = () => {
             if (m.label && !inThePast(m.label)) {
                 let firstLabel = document.createElement("div");
 
-                firstLabel.innerHTML = "<div><b class='labels-title'>Forecast storm path<br></b>" + m.label + "</div>"
+                firstLabel.innerHTML = "<div><b class='labels-title'>Forecast storm path<br></b>" + fix(m.label) + "</div>"
 
                 var marker1 = new MarkerWithLabel({
                     position: m,
@@ -159,14 +165,14 @@ window.initMap = () => {
                 if (m.label && !inThePast(m.label)) {
                     let firstLabel = document.createElement("div");
 
-                    firstLabel.innerHTML = "<div><b class='labels-title'>Forecast storm path & severity<br></b>" + m.label + "</div>"
+                    firstLabel.innerHTML = "<div><b class='labels-title'>Forecast storm path & severity<br></b>" + fix(m.label) + "</div>"
 
                     var marker1 = new MarkerWithLabel({
                         position: m,
                         draggable: false,
                         raiseOnDrag: false,
                         map: map,
-                        labelContent: (i === markers.length - 1) ? firstLabel : m.label,
+                        labelContent: (i === markers.length - 1) ? firstLabel : fix(m.label),
                         labelAnchor: new google.maps.Point(-15, (i === markers.length - 1) ? 40 : 20),
                         // labelContent: m.severity,
                         // labelAnchor: new google.maps.Point(3.5, 8),
