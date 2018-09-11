@@ -4,10 +4,10 @@ import request from 'request'
 import fs from 'fs'
 import child_process from 'child_process'
 
-const startDay = '2018-09-10'
-const endDay = '2018-09-10'
-const startString = '15:00:35'
-const endString = '16:00:35'
+const startDay = '2018-09-08'
+const endDay = '2018-09-11'
+const startString = '18:45:35'
+const endString = '18:45:30'
 
 let h1, m1, s1;
 [h1, m1, s1] = startString.split(':')
@@ -29,7 +29,7 @@ let urls = new Set()
 
 const wait = ms => new Promise((resolve, reject) => setTimeout(() => resolve() , ms));
 
-const possible = ['31', '32', '39', '38', '35', '40', '34', '36', '33', '37', '30']
+const possible = ['31', '30', '32', '39', '38', '35', '40', '34', '36', '33', '37']
 
 const requestRetry = (url, n, theIndex) => {
 

@@ -97,7 +97,7 @@ window.initMap = () => {
 
 
     if (markers && markers.length > 0) {
-        markers.forEach((m, i) => {
+        markers.slice(1).forEach((m, i) => {
             const markerSize = defaultMarkerConfig.markerSize;
             // const marker = new google.maps.Marker({
             //     map: map,

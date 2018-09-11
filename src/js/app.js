@@ -40,7 +40,7 @@ let historyMarkers = history.features.map(d => {
         "label": d.properties.Name,
         "severity": severity
     }
-});
+}).concat( markers[0] );
 
 var lineSymbol = {
     path: 'M 0,-1 0,1',
