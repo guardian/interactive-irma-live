@@ -208,7 +208,7 @@
     }
 
     display: none !important;
-    &:nth-of-type(even) {
+    &:nth-of-type(odd) {
         display: block !important;
     }
 
