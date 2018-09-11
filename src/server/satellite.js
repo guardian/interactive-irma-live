@@ -4,10 +4,10 @@ import request from 'request'
 import fs from 'fs'
 import child_process from 'child_process'
 
-const startDay = '2017-09-18'
-const endDay = '2017-09-19'
-const startString = '00:00:38'
-const endString = '09:45:39'
+const startDay = '2018-09-08'
+const endDay = '2018-09-10'
+const startString = '00:00:35'
+const endString = '14:15:31'
 
 let h1, m1, s1;
 [h1, m1, s1] = startString.split(':')
@@ -29,7 +29,7 @@ let urls = new Set()
 
 const wait = ms => new Promise((resolve, reject) => setTimeout(() => resolve() , ms));
 
-const possible = ['39', '38', '35', '40', '34', '36', '33', '37']
+const possible = ['31', '32', '39', '38', '35', '40', '34', '36', '33', '37', '30']
 
 const requestRetry = (url, n, theIndex) => {
 
@@ -88,8 +88,8 @@ while(current <= end) {
 	let xMin = 3
 	let xMax = 6
 
-	let yMin = 1
-	let yMax = 3
+	let yMin = 0
+	let yMax = 2
 
 	const day = current.format('YYYY-MM-DD')
 	//console.log(day)
@@ -112,7 +112,7 @@ while(current <= end) {
 				
 				.then( img => { //fs.createWriteStream(`satellite/${day.replace(/-/g, '')}_${curString}_00${y}_0${x}.png`).on('close', cb => {
 
-					fs.writeFileSync(`satellite/${day.replace(/-/g, '')}_${curString}_00${y}_0${x}.png`, img, 'binary')
+					fs.writeFileSync(`./src/server/satellite/${day.replace(/-/g, '')}_${curString}_00${y}_0${x}.png`, img, 'binary')
 
 					xxx++
 
@@ -136,7 +136,7 @@ while(current <= end) {
 
 						console.log(args)
 
-						const child = child_process.spawn(cmd, args, { cwd : './satellite' })
+						const child = child_process.spawn(cmd, args, { cwd : './src/server/satellite' })
 
 						child.on('exit', () => {
 							console.log('doneeee')

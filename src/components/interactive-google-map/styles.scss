@@ -2,7 +2,7 @@
     padding-bottom: 75%;
 
     @include mq($until: 600px) {
-    	padding-bottom: 120%;
+    	padding-bottom: 130%;
     }
 
     @include mq(desktop) {

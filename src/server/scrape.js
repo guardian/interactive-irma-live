@@ -1,5 +1,5 @@
 var osmosis = require("osmosis")
-const url = 'http://www.nhc.noaa.gov/gis/archive_forecast_results.php?id=al17&year=2017'
+const url = 'http://www.nhc.noaa.gov/gis/archive_forecast_results.php?id=al06&year=2018'
 const base = 'http://www.nhc.noaa.gov/gis/'
 let arr = []
 
@@ -11,6 +11,8 @@ osmosis.get(url)
 	.data( obj => {
 		
 		arr.push(obj.url)
+
+		console.log(obj)
 
 	})
 	.done(() => {

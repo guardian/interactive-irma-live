@@ -11,7 +11,8 @@
     "postinstall": "bower install",
     "deploylive": "gulp deploylive",
     "deploypreview": "gulp deploypreview",
-    "irma": "./node_modules/.bin/babel-node ./src/server/get_data.js"
+    "irma": "./node_modules/.bin/babel-node ./src/server/get_data.js",
+    "satellite": "./node_modules/.bin/babel-node src/server/satellite.js"
   },
   "author": "",
   "license": "ISC",

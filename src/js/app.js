@@ -55,7 +55,7 @@ const map = new GoogleMap({
         el: el,
         config: {
             center: { lat: 54.251871305222956, lng: -1.1823125812500335 },
-            zoom: el.clientWidth > 600 ? 4 : 4
+            zoom: el.clientWidth > 600 ? 5 : 4
         },
         markers: markers,
         historyMarkers: historyMarkers,

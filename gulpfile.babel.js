@@ -278,7 +278,7 @@ gulp.task('local:html', ['build:html'], () => {
 });
 
 gulp.task('default', ['local'], () => {
-    gulp.watch(['src/**/*', '!src/css/*', '!src/js/app.js', '!src/render.js', '!src/assets/*'], ['local']).on('change', evt => {
+    gulp.watch(['src/**/*', '!src/css/*', '!src/js/app.js', '!src/render.js', '!src/assets/*', '!src/server/satellite/*'], ['local']).on('change', evt => {
         gutil.log(gutil.colors.yellow(`${evt.path} was ${evt.type}`));
     });
 
@@ -302,7 +302,8 @@ gulp.task('default', ['local'], () => {
         'server': {
             'baseDir': buildDir
         },
-        'port': 8000
+        'port': 8000,
+        'open': false
     });
 });
 
