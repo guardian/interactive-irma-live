@@ -27,7 +27,7 @@ export async function render() {
 	            <div class="scale__section" data-label="1" style="background-color: #fecc5c"></div>
     	    </div>
 
-    		<div class="scale__expl">The grey cone shows the likely path of the centre of the hurricane</div>
+    		<div class="scale__expl">The grey cone shows the likely path of the centre of the hurricane. It does not indicate the size of the storm</div>
     	</div>
     	<div class="map"></div>
     	<div class="notes">All times in Eastern Daylight Time | Source: US National Hurricane Center | Last updated: ${date}</div>
