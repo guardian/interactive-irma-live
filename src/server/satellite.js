@@ -4,10 +4,10 @@ import request from 'request'
 import fs from 'fs'
 import child_process from 'child_process'
 
-const startDay = '2018-09-08'
+const startDay = '2018-09-10'
 const endDay = '2018-09-10'
-const startString = '00:00:35'
-const endString = '14:15:31'
+const startString = '15:00:35'
+const endString = '16:00:35'
 
 let h1, m1, s1;
 [h1, m1, s1] = startString.split(':')
