@@ -16,7 +16,6 @@
 
 .scale {
     padding-bottom: 6px;
-    padding-left: 10px;
 
         &:after {
         content: "";
@@ -48,6 +47,9 @@
     line-height: 28px;
     box-sizing: border-box; // opacity: 0.75;
     margin-left: 3px;
+
+    text-align: center;
+
     &::before {
         content: attr(data-label);
         @include fs-header(1);
@@ -56,7 +58,6 @@
         margin-top: 0;
         position: relative;
         top: -2px;
-        left: 7px;
         //left: -8px;
         color: white;
         white-space: nowrap; // display: block;
@@ -208,4 +209,13 @@
     @include fs-textSans(2);
     margin-top: 6px;
     max-width: 480px;
+}
+
+.here {
+    
+    background: white;
+    border-top: 1px solid #dcdcdc;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #dcdcdc;
 }
