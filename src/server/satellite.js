@@ -4,10 +4,10 @@ import request from 'request'
 import fs from 'fs'
 import child_process from 'child_process'
 
-const startDay = '2018-09-08'
-const endDay = '2018-09-11'
-const startString = '18:45:35'
-const endString = '18:45:30'
+const startDay = '2018-09-13'
+const endDay = '2018-09-13'
+const startString = '08:00:30'
+const endString = '10:00:30'
 
 let h1, m1, s1;
 [h1, m1, s1] = startString.split(':')
@@ -27,9 +27,11 @@ let current = start
 
 let urls = new Set()
 
+const range = Array(40).fill().map((_, i) => 10 + i)
+
 const wait = ms => new Promise((resolve, reject) => setTimeout(() => resolve() , ms));
 
-const possible = ['31', '30', '32', '39', '38', '35', '40', '34', '36', '33', '37']
+const possible = ['35', '31', '30', '32', '39', '38', '40', '34', '36', '33', '37' ]
 
 const requestRetry = (url, n, theIndex) => {
 
@@ -60,7 +62,7 @@ const requestRetry = (url, n, theIndex) => {
 				}
 				else {
 
-					console.log('err', resp && resp.statusCode ? resp.statusCode + ' ' + theIndex : '')
+					console.log('err', resp && resp.statusCode ? resp.statusCode + ' ' + theIndex + ' ': '')
 
 					const newUrl = url.slice(0, -17) + possible[theIndex] + url.slice(-15)
 
@@ -108,6 +110,10 @@ while(current <= end) {
 
 			wait(Math.random()*1000).then(() => {
 
+				if(fs.existsSync(`./src/server/satellite/${day.replace(/-/g, '')}_${curString}_00${y}_0${x}.png`)) {
+					counts[hash] ++
+				} else {
+
 				requestRetry(url, 50, 0)//.then( resp => resp.blob() )
 				
 				.then( img => { //fs.createWriteStream(`satellite/${day.replace(/-/g, '')}_${curString}_00${y}_0${x}.png`).on('close', cb => {
@@ -146,9 +152,11 @@ while(current <= end) {
 					}
 
 				} )
+				
 				.catch(err => console.log(err))
 
 				//.then(blob => fs.writeFileSync(`${day.replace(/-/g, '')}_00${x}_0${y}.png`, blob, 'binary'))
+				}
 
 			})
 		}
